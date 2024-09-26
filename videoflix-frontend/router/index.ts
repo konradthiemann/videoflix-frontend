@@ -1,6 +1,6 @@
+// videoflix-frontend/src/router/index.ts
 import { createRouter, createWebHistory } from 'vue-router';
-import store from '@/store';
-
+import { useAuthStore } from '../store';
 import LoginPage from '@/components/LoginPage.vue';
 import RegisterPage from '@/components/RegisterPage.vue';
 import ResetPasswordPage from '@/components/ResetPasswordPage.vue';
@@ -21,7 +21,8 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const isAuthenticated = !!store.state.token;
+  const authStore = useAuthStore();
+  const isAuthenticated = !!authStore.token;
   if (to.name !== 'Login' && to.name !== 'Register' && !isAuthenticated) {
     next({ name: 'Login' });
   } else {
