@@ -4,16 +4,22 @@ import { useRouter } from 'vue-router';
 import axios from 'axios';
 
 const username = ref<string>('');
+const firstName = ref<string>('');
+const lastName = ref<string>('');
 const email = ref<string>('');
 const password = ref<string>('');
+const rePassword = ref<string>('');
 const router = useRouter();
 
 const handleRegister = async () => {
   try {
-    await axios.post('http://localhost:3000/api/register', {
-      username: username.value,
-      email: email.value,
-      password: password.value,
+    await axios.post('http://127.0.0.1:8000/api/v1/users/', {
+      "username": username.value,
+      "first_name": firstName.value,
+      "last_name": lastName.value,
+      "email": email.value,
+      "password": password.value,
+      "re_password": rePassword.value
     });
     alert('Registration successful. Please login.');
     router.push('/login');
@@ -35,6 +41,18 @@ const handleRegister = async () => {
         required
       />
       <input
+        v-model="firstName"
+        type="text"
+        placeholder="First Name"
+        required
+      />
+      <input
+        v-model="lastName"
+        type="text"
+        placeholder="Last Name"
+        required
+      />
+      <input
         v-model="email"
         type="email"
         placeholder="Email"
@@ -44,6 +62,12 @@ const handleRegister = async () => {
         v-model="password"
         type="password"
         placeholder="Password"
+        required
+      />
+      <input
+        v-model="rePassword"
+        type="password"
+        placeholder="Confirm Password"
         required
       />
       <button type="submit">

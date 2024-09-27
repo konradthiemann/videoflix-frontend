@@ -11,12 +11,14 @@ const authStore = useAuthStore();
 
 const handleLogin = async () => {
   try {
-    const response = await axios.post('http://localhost:3000/api/login', {
+    const response = await axios.post('http://127.0.0.1:8000/api/v1/jwt/create/', {
       email: email.value,
       password: password.value,
     });
-    authStore.setToken(response.data.token);
-    localStorage.setItem('token', response.data.token);
+    console.log(response.data);
+    authStore.setToken(response.data.access);
+    localStorage.setItem('token', response.data.access);
+    localStorage.setItem('refreshToken', response.data.refresh);
     router.push('/');
   } catch (error) {
     console.error(error);
@@ -28,6 +30,9 @@ const handleLogin = async () => {
 <template>
   <div class="login-page">
     <h2>Login</h2>
+    konrad.gruss@t-online.de
+    <br>
+    pr3mioxboss
     <form @submit.prevent="handleLogin">
       <input
         v-model="email"
