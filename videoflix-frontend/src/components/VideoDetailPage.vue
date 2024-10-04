@@ -13,12 +13,12 @@ const video = ref<Video | null>(null);
 const route = useRoute();
 
 const videoUrl = computed(() => {
-  return `http://localhost:3000/api/videos/${route.params.id}/stream`;
+  return `http://127.0.0.1:8000/api/videos/${route.params.id}/stream`;
 });
 
 onMounted(async () => {
   try {
-    const response = await axios.get<Video>(`http://localhost:3000/api/videos/${route.params.id}`);
+    const response = await axios.get<Video>(`http://127.0.0.1:8000/api/videos/${route.params.id}`);
     video.value = response.data;
   } catch (error) {
     console.error(error);

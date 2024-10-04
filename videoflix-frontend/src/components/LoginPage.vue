@@ -4,10 +4,11 @@ import axios from 'axios';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../../store';
 
-const email = ref<string>('');
-const password = ref<string>('');
+const email = ref<string>('konrad.gruss@t-online.de');
+const password = ref<string>('pr3mioxboss');
 const router = useRouter();
 const authStore = useAuthStore();
+// const user = ref<User>();
 
 const handleLogin = async () => {
   try {
@@ -15,7 +16,6 @@ const handleLogin = async () => {
       email: email.value,
       password: password.value,
     });
-    console.log(response.data);
     authStore.setToken(response.data.access);
     localStorage.setItem('token', response.data.access);
     localStorage.setItem('refreshToken', response.data.refresh);
